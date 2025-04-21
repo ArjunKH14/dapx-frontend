@@ -10,7 +10,7 @@ export class FrontendStack extends Stack {
 
     const amplifyApp = new amplify.App(this, 'DAPXFrontendApp', {
       sourceCodeProvider: new amplify.GitHubSourceCodeProvider({
-        owner: 'your-github-username',
+        owner: 'ArjunKH14',
         repository: 'dapx-frontend',
         oauthToken: cdk.SecretValue.secretsManager('github-token'),
       }),

@@ -3,10 +3,12 @@ import * as cdk from 'aws-cdk-lib';
 import { FrontendStack } from '../lib/frontend-stack';
 
 const app = new cdk.App();
+const account = app.node.tryGetContext('account');
+const region = app.node.tryGetContext('region');
 
 new FrontendStack(app, 'DapxFrontendStack', {
   env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
+    account: account,
+    region: region,
   }
 });

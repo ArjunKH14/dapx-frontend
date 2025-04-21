@@ -40,7 +40,7 @@ function App() {
       </div>
       <div style={{ padding: 40, fontFamily: 'Arial', fontSize: 18 }}>
       <h1>DAPX Frontend</h1>
-      <p>Backend Status: {status}</p>
+      <p>Backend connection Status: {status}</p>
     </div>
     </>
   )
