@@ -37,6 +37,6 @@ export class FrontendStack extends Stack {
     });
 
     amplifyApp.addBranch('master'); // Deploys main branch
-    amplifyApp.addEnvironment('REACT_APP_BACKEND_URL', 'http://dapxba-dapxf-ae6aziuspqzl-846503671.us-east-1.elb.amazonaws.com/api/health');
+    amplifyApp.addEnvironment('VITE_BACKEND_URL', 'http://dapxba-dapxf-ae6aziuspqzl-846503671.us-east-1.elb.amazonaws.com/api/health');
   }
 }

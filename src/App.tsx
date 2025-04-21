@@ -8,7 +8,7 @@ function App() {
   const [status, setStatus] = useState('Checking backend...');
 
   useEffect(() => {
-    const backendUrl = import.meta.env.REACT_APP_BACKEND_URL ?? 'http://localhost:3000';
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
     fetch(`${backendUrl}/api/health`)
     // fetch('http://dapxba-dapxf-ae6aziuspqzl-846503671.us-east-1.elb.amazonaws.com/api/health')
       .then((res) => res.json())
