@@ -10,7 +10,6 @@ function App() {
   useEffect(() => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
     fetch(`${backendUrl}/api/health`)
-    // fetch('http://dapxba-dapxf-ae6aziuspqzl-846503671.us-east-1.elb.amazonaws.com/api/health')
       .then((res) => res.json())
       .then((data) => setStatus(`✅ ${data.status} - ${data.service} - ${backendUrl}`))
       .catch((err) => {

@@ -36,7 +36,17 @@ export class FrontendStack extends Stack {
       }),
     });
 
-    amplifyApp.addBranch('master'); // Deploys main branch
-    amplifyApp.addEnvironment('VITE_BACKEND_URL', 'http://dapxba-dapxf-ae6aziuspqzl-846503671.us-east-1.elb.amazonaws.com/api/health');
+    const masterBranch = amplifyApp.addBranch('master'); // Deploys main branch
+    amplifyApp.addEnvironment('VITE_BACKEND_URL', 'https://api.vxhx.com');
+
+    // Add custom domain
+    const domainName = 'vxhx.com';
+    const fullDomain = 'app.vxhx.com';
+    const domain = amplifyApp.addDomain(fullDomain, {
+      enableAutoSubdomain: false,
+    });
+
+    domain.mapRoot(masterBranch); // app.dapx.com → main branch
+
   }
 }
