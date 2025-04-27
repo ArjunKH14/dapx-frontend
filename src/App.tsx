@@ -1,48 +1,44 @@
-import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Layout from './components/Layout';
+import Dashboard from './pages/Dashboard';
+import Setups from './pages/Tags/Setups';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
-function App() {
-  const [count, setCount] = useState(0);
-  const [status, setStatus] = useState('Checking backend...');
+const theme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#1E1E2D',
+    },
+    secondary: {
+      main: '#2D2D42',
+    },
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  },
+});
 
-  useEffect(() => {
-    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
-    fetch(`${backendUrl}/api/health`)
-      .then((res) => res.json())
-      .then((data) => setStatus(`✅ ${data.status} - ${data.service} - ${backendUrl}`))
-      .catch((err) => {
-        console.error(err);
-        setStatus('❌ Failed to reach backend')
-      });
-  }, []);
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <div style={{ padding: 40, fontFamily: 'Arial', fontSize: 18 }}>
-      <h1>DAPX Frontend</h1>
-      <p>Backend connection Status: {status}</p>
-    </div>
-    </>
-  )
-}
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Provider store={store}>
+        <Router>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/tags/setups" element={<Setups />} />
+            </Routes>
+          </Layout>
+        </Router>
+      </Provider>
+    </ThemeProvider>
+  );
+};
 
-export default App
+export default App;
