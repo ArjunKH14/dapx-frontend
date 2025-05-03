@@ -8,7 +8,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   // padding: theme.spacing(1.5),
   height: '6rem',
   // maxWidth: '60%',
-  width: '20rem',
+  width: '15rem',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -79,7 +79,7 @@ const metrics = [
 const Dashboard = () => {
   return (
     <Box sx={{ height: '100%', overflow: 'auto' }}>
-      <Grid container spacing={{ xs: 1.5, sm: 2, md: 0 }} sx={{ mb: { xs: 2, sm: 3 } }}>
+      <Grid container spacing={{ xs: 1.5, sm: 2, md: 8 }} sx={{ mb: { xs: 2, sm: 3 }, ml: { xs: 4, sm: 4, md: 2 } }} >
         {metrics.map((metric, index) => (
           // <Grid item xs={6} sm={6} md={3} key={metric.title}>
              <Grid  key={metric.title} size={{ xs: 12, sm: 6, md: 3 }}>

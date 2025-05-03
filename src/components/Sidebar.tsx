@@ -39,21 +39,21 @@ interface SidebarContainerProps {
 
 const SidebarContainer = styled(Box)<SidebarContainerProps>(({ theme, isOpen }) => ({
   width: isOpen ? '16rem' : '5rem',
-  height: '100vh',
+  height: '95vh',
   backgroundColor: '#1E1E2D',
   color: '#fff',
   position: 'fixed',
   left: 0,
   top: '4rem',
-  overflowY: 'auto',
-  overflowX: 'hidden',
+  bottom: '10rem',
+  // overflow: 'scroll',
   transition: 'width 0.3s ease-in-out',
   zIndex: theme.zIndex.drawer,
   borderRight: '1px solid rgba(255, 255, 255, 0.1)',
   [theme.breakpoints.down('md')]: {
     width: '16rem',
-    position: 'static',
-    height: '100%',
+    position: 'fixed',
+    overflow: 'scroll',
   },
 }));
 
@@ -219,20 +219,20 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, isMobile, onMenuClick }) => {
 
   const sidebarContent = (
     <SidebarContainer isOpen={isOpen}>
-      <List>
-        <SectionTitle isOpen={!isMobile && isOpen}>MAIN MENU</SectionTitle>
+      <List sx={{ flexGrow: 1, minHeight: 0, paddingBottom: '10%' }}>
+        <SectionTitle isOpen={isOpen}>MAIN MENU</SectionTitle>
         {renderMenuItems(menuSections.mainItems)}
 
-        <SectionTitle isOpen={!isMobile && isOpen}>ANALYSIS</SectionTitle>
+        <SectionTitle isOpen={ isOpen}>ANALYSIS</SectionTitle>
         {renderMenuItems(menuSections.analysis)}
 
-        <SectionTitle isOpen={!isMobile && isOpen}>TRADING</SectionTitle>
+        <SectionTitle isOpen={ isOpen}>TRADING</SectionTitle>
         {renderMenuItems(menuSections.trading)}
 
-        <SectionTitle isOpen={!isMobile && isOpen}>MARKET DATA</SectionTitle>
+        <SectionTitle isOpen={ isOpen}>MARKET DATA</SectionTitle>
         {renderMenuItems(menuSections.marketData)}
 
-        <SectionTitle isOpen={!isMobile && isOpen}>SETTINGS</SectionTitle>
+        <SectionTitle isOpen={ isOpen}>SETTINGS</SectionTitle>
         {renderMenuItems(menuSections.settings)}
       </List>
     </SidebarContainer>

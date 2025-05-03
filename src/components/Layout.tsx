@@ -71,21 +71,21 @@ const MobileOverlay = styled(Box)(({ theme }) => ({
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [isOpen, setIsOpen] = useState(!isMobile);
-
-  useEffect(() => {
-    setIsOpen(!isMobile);
-  }, [isMobile]);
 
   const handleMenuClick = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    setIsOpen(!isMobile);
+  }, [isMobile]);
+
   return (
     <PageContainer>
       <TopHeader onMenuClick={handleMenuClick} isOpen={isOpen} isMobile={isMobile} />
-      <ContentSection>
+      <Box sx={{ display: 'flex', flex: 1 }}>
         <Sidebar isOpen={isOpen} isMobile={isMobile} onMenuClick={handleMenuClick} />
         {isMobile && isOpen && (
           <MobileOverlay 
@@ -95,12 +95,14 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         )}
         <MainContent isOpen={isOpen} isMobile={isMobile}>
           <ContentWrapper>
-            {children}
+            <ContentSection>
+              {children}
+            </ContentSection>
+        
           </ContentWrapper>
           <Footer />
         </MainContent>
-      
-      </ContentSection>
+      </Box>
     </PageContainer>
   );
 };
