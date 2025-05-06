@@ -7,6 +7,7 @@ interface User {
   email: string;
   dob: string;
   avatar?: string;
+  subscription?: 'Standard' | 'Pro' | 'Advanced';
 }
 
 interface AuthState {
@@ -21,13 +22,15 @@ interface UserData {
   password: string;
   name: string;
   dob: string;
+  subscription?: 'Standard' | 'Pro' | 'Advanced';
 }
 
 let userData: { [email: string]: UserData } = {
-  'admin@g.com': {
+  'admin@dapx.ai': {
     password: 'admin123',
     name: 'Admin User',
-    dob: '1990-01-01'
+    dob: '1990-01-01',
+    subscription: 'Standard',
   }
 };
 
@@ -64,13 +67,11 @@ const authSlice = createSlice({
     updateProfile: (state, action: PayloadAction<{ name: string; dob: string }>) => {
       if (state.user) {
         const { name, dob } = action.payload;
-        // Update in-memory storage
         userData[state.user.email] = {
           ...userData[state.user.email],
           name,
           dob
         };
-        // Update Redux state
         state.user = {
           ...state.user,
           name,
@@ -78,9 +79,21 @@ const authSlice = createSlice({
         };
       }
     },
+    updateSubscription: (state, action: PayloadAction<'Standard' | 'Pro' | 'Advanced'>) => {
+      if (state.user) {
+        userData[state.user.email] = {
+          ...userData[state.user.email],
+          subscription: action.payload,
+        };
+        state.user = {
+          ...state.user,
+          subscription: action.payload,
+        };
+      }
+    },
     registerUser: (state, action: PayloadAction<{ email: string; password: string; name: string; dob: string }>) => {
       const { email, password, name, dob } = action.payload;
-      userData[email] = { password, name, dob };
+      userData[email] = { password, name, dob, subscription: 'Standard' };
     },
   },
 });
@@ -88,8 +101,6 @@ const authSlice = createSlice({
 export const login = (email: string, password: string) => {
   return (dispatch: AppDispatch) => {
     dispatch(loginStart());
-    
-    // Simulate API call with stored credentials
     setTimeout(() => {
       if (userData[email]?.password === password) {
         const userInfo = userData[email];
@@ -98,7 +109,8 @@ export const login = (email: string, password: string) => {
           name: userInfo.name,
           email: email,
           dob: userInfo.dob,
-          avatar: '/path-to-avatar.jpg'
+          avatar: '/path-to-avatar.jpg',
+          subscription: userInfo.subscription || 'Standard',
         }));
       } else {
         dispatch(loginFailure('Invalid email or password'));
@@ -122,6 +134,7 @@ export const {
   loginFailure,
   logout,
   updateProfile,
+  updateSubscription,
   registerUser,
 } = authSlice.actions;
 

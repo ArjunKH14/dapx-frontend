@@ -46,7 +46,7 @@ const SidebarContainer = styled(Box)<SidebarContainerProps>(({ theme, isOpen }) 
   left: 0,
   top: '4rem',
   bottom: '10rem',
-  // overflow: 'scroll',
+  overflow: 'scroll',
   transition: 'width 0.3s ease-in-out',
   zIndex: theme.zIndex.drawer,
   borderRight: '1px solid rgba(255, 255, 255, 0.1)',
@@ -145,8 +145,7 @@ const menuSections = {
       text: 'Ticker',
       icon: <TickerIcon />,
       subItems: ['Sectors', 'Symbols'],
-    },
-    { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
+    }
   ],
 };
 

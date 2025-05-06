@@ -27,6 +27,12 @@ const DashboardPage: React.FC = () => {
       actionText: 'View Profile',
     },
     {
+      title: 'Journal',
+      description: 'Write and review your trading journal entries',
+      action: () => navigate('/journal'),
+      actionText: 'Go to Journal',
+    },
+    {
       title: 'Settings',
       description: 'Manage your account settings and preferences',
       action: () => navigate('/settings'),
@@ -66,8 +72,7 @@ const DashboardPage: React.FC = () => {
 
       <Grid container spacing={3}>
         {dashboardCards.map((card, index) => (
-        //   <Grid item xs={12} sm={6} md={4} key={index}>
-            <Grid key={index} size={{ xs: 12, sm: 6, md: 4 }}>
+          <Grid key={index} size={{ xs: 12, sm: 6, md: 4 }}>
             <Card 
               sx={{ 
                 height: '100%',

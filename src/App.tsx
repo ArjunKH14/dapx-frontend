@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { GlobalStyles } from '@mui/material';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Setups from './pages/Tags/Setups';
@@ -14,6 +15,8 @@ import EditProfilePage from './features/auth/pages/EditProfilePage';
 import ProtectedRoute from './components/ProtectedRoute';
 import DashboardPage from './features/dashboard/pages/DashboardPage';
 import PrivateRoute from './components/PrivateRoute';
+import JournalPage from './pages/JournalPage';
+import AnalyticsPage from './pages/AnalyticsPage';
 
 const theme = createTheme({
   palette: {
@@ -34,6 +37,12 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <GlobalStyles styles={{
+        body: {
+          background: 'linear-gradient(135deg, #f7fafc 0%, #e3e8ee 100%)',
+          minHeight: '100vh',
+        },
+      }} />
       <Provider store={store}>
         <Router>
           <Routes>
@@ -86,6 +95,26 @@ const App = () => {
                 <PrivateRoute>
                   <DashboardPage />
                 </PrivateRoute>
+              }
+            />
+            <Route
+              path="/journal"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <JournalPage />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/analytics"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <AnalyticsPage />
+                  </Layout>
+                </ProtectedRoute>
               }
             />
           </Routes>

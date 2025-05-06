@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
 import { logout } from '../features/auth/store/authSlice';
 import Logout from '@mui/icons-material/Logout';
+import dapxLogo from '../assets/dapx-logo-symbol.png';
 
 export interface TopHeaderProps {
   onMenuClick: () => void;
@@ -41,7 +42,7 @@ const HeaderContainer = styled(AppBar)(({ theme }) => ({
 const BrandName = styled(Typography)(({ theme }) => ({
   fontSize: '1.25rem',
   fontWeight: 600,
-  marginLeft: '0.5rem',
+  marginLeft: '0.1rem',
   color: '#fff',
   cursor: 'pointer',
   [theme.breakpoints.down('sm')]: {
@@ -158,7 +159,12 @@ const TopHeader: React.FC<TopHeaderProps> = ({ onMenuClick, isOpen, isMobile }) 
           {isOpen ? <MenuOpenIcon /> : <MenuIcon />}
         </MenuIconStyled>
       </IconButton>
-      <BrandName onClick={() => navigate('/')}>Dapx AI</BrandName>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <img src={dapxLogo} alt="Dapx AI Logo" style={{ width: '10%', height: '10%'}} />
+      <BrandName onClick={() => navigate('/')}>
+     
+      Dapx AI</BrandName>
+      </Box>
 
       <NavContainer direction="row" spacing={2}>
         {navItems.map((item) => (
@@ -202,11 +208,16 @@ const TopHeader: React.FC<TopHeaderProps> = ({ onMenuClick, isOpen, isMobile }) 
         onClose={handleSettingsClose}
         onClick={handleSettingsClose}
         PaperProps={{
-          elevation: 0,
+          elevation: 6,
           sx: {
             overflow: 'visible',
             mt: 1.5,
-            minWidth: 180,
+            minWidth: 200,
+            bgcolor: '#232336',
+            color: '#fff',
+            borderRadius: 2,
+            boxShadow: '0 8px 32px 0 rgba(31,38,135,0.18)',
+            border: '1px solid #292945',
             '& .MuiAvatar-root': {
               width: 32,
               height: 32,
@@ -221,7 +232,9 @@ const TopHeader: React.FC<TopHeaderProps> = ({ onMenuClick, isOpen, isMobile }) 
               right: 14,
               width: 10,
               height: 10,
-              bgcolor: 'background.paper',
+              bgcolor: '#232336',
+              borderLeft: '1px solid #292945',
+              borderTop: '1px solid #292945',
               transform: 'translateY(-50%) rotate(45deg)',
               zIndex: 0,
             },
@@ -232,23 +245,24 @@ const TopHeader: React.FC<TopHeaderProps> = ({ onMenuClick, isOpen, isMobile }) 
       >
         {isAuthenticated ? (
           <>
-            <MenuItem onClick={handleProfileClick}>
+            <MenuItem onClick={handleProfileClick} sx={{ '&:hover': { backgroundColor: 'rgba(255,255,255,0.06)', color: '#fff' } }}>
               <Avatar sx={{ bgcolor: '#2D2D42' }}>
                 {user?.name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || '?'}
               </Avatar>
               Profile
             </MenuItem>
-            <MenuItem onClick={handleLogout}>           
-            <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon> Logout</MenuItem>
+            <MenuItem onClick={handleLogout} sx={{ '&:hover': { backgroundColor: 'rgba(255,255,255,0.06)', color: '#fff' } }}>           
+              <ListItemIcon>
+                <Logout fontSize="small" sx={{ color: '#fff' }} />
+              </ListItemIcon> Logout
+            </MenuItem>
           </>
         ) : (
           <>
-            <MenuItem onClick={() => navigate('/login')}>
+            <MenuItem onClick={() => navigate('/login')} sx={{ '&:hover': { backgroundColor: 'rgba(255,255,255,0.06)', color: '#fff' } }}>
               <Typography>Login</Typography>
             </MenuItem>
-            <MenuItem onClick={() => navigate('/signup')}>
+            <MenuItem onClick={() => navigate('/signup')} sx={{ '&:hover': { backgroundColor: 'rgba(255,255,255,0.06)', color: '#fff' } }}>
               <Typography>Sign Up</Typography>
             </MenuItem>
           </>
